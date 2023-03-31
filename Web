@@ -1,0 +1,1093 @@
+const char webpage[] PROGMEM = R"=====(
+
+
+<!DOCTYPE html>
+<html lang="vi">
+<style>
+    body {
+
+        background-color: #f2fff4;
+        background-image: url(https://img1.kienthucvui.vn/uploads/2021/01/10/hinh-anh-mua-dong-tuyet-dep_025453687.jpg);
+        background-size: 100% 1300px;
+    }
+
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        list-style: none;
+        text-decoration: none;
+        font-family: 'Poppin', sans-serif;
+    }
+
+    #button {
+        outline: none;
+        border: .1rem solid #333;
+        padding: .5rem 1rem;
+        border-radius: .5rem;
+        cursor: pointer;
+        background-color: #E9E9ED;
+        color: #333;
+        letter-spacing: .1rem;
+        transition: .2s;
+        display: block;
+        position: absolute;
+        right: 5rem;
+        top: 8rem;
+        transform: translateY(-2rem);
+    }
+
+    #button4 {
+        outline: none;
+        border: .1rem solid #333;
+        padding: .5rem .5rem;
+        border-radius: .5rem;
+        cursor: pointer;
+        background-color: #E9E9ED;
+        color: #333;
+        letter-spacing: .1rem;
+        transition: .5s;
+        margin: .5rem 0;
+        display: block;
+        position: absolute;
+        right: 11.5rem;
+        top: 8rem;
+    }
+
+    #button5 {
+        outline: none;
+        border: .1rem solid #333;
+        padding: .5rem .2rem;
+        border-radius: .5rem;
+        cursor: pointer;
+        background-color: #E9E9ED;
+        color: #333;
+        letter-spacing: .1rem;
+        transition: .5s;
+        margin: .5rem 0;
+        display: block;
+        position: absolute;
+        right: 5rem;
+        top: 8rem;
+    }
+
+    #button:hover {
+        background-color: #333;
+        color: #fff;
+    }
+
+    #button2:hover {
+        background-color: #333;
+        color: #fff;
+    }
+
+    #button3:hover {
+        background-color: #333;
+        color: #fff;
+    }
+
+    #button4:hover {
+        background-color: #333;
+        color: #fff;
+    }
+
+    #button5:hover {
+        background-color: #333;
+        color: #fff;
+    }
+
+    #wrapper {
+        padding: 5rem;
+        padding-top: 2rem;
+    }
+
+
+
+    #hide {
+        display: none;
+    }
+
+
+    .delete {
+        display: none;
+    }
+
+    .date-time {
+        display: flex;
+        gap: 1rem;
+    }
+
+    form {
+        max-width: 990px;
+        margin: 0 auto;
+    }
+
+    form table {
+        border-collapse: collapse;
+        width: 100%;
+        text-align: center;
+        margin-bottom: 2rem;
+
+    }
+
+    form table td,
+    form table th {
+        padding: 0.2rem 1rem;
+        background-color: #fff;
+    }
+
+    form table th {
+
+        font-size: 1rem;
+        font-weight: 200;
+        background-color: #fff;
+    }
+
+    form table input {
+        width: 100%;
+        padding: 0.2rem 1rem;
+        text-align: center;
+        margin: .2rem 0;
+        background-color: #fff;
+    }
+
+
+    .fa-temperature-half {
+        color: red;
+        margin-right: .2rem;
+    }
+
+    .fa-droplet {
+        color: blue;
+        margin-right: .2rem;
+    }
+
+    .tcl {
+        color: var(--my-color);
+    }
+
+    .tttb {
+        color: var(--my-color);
+        font-size: 20px;
+    }
+
+    .midle {
+        color: var(--my-color);
+        font-size: 20px;
+    }
+
+    :root {
+        --my-color: rgb(0, 0, 0);
+    }
+
+    @media screen and (max-width:450px) {
+        html {
+            font-size: 60%;
+        }
+
+        form {
+            max-width: 450px;
+        }
+
+        form table {
+            width: 100%;
+        }
+    }
+
+    /* form đăng nhập */
+    #login {
+        position: fixed;
+        width: 100vw;
+        height: 100vh;
+        top: 0;
+        right: 0;
+        left: 0;
+        z-index: 10000000000000000000;
+        background-color: rgba(0, 0, 0, 0.8);
+    }
+
+    #login.hidden {
+        display: none;
+    }
+
+    #login .login-form {
+        margin: 0 auto;
+        margin-top: 10.5rem;
+        width: 30rem;
+        background-color: #fff;
+        padding: 2rem 3rem;
+        border-radius: .5rem;
+        border: .1rem solid #000;
+        box-shadow: 0 0 15px rgb(174, 207, 177);
+    }
+
+    #login .login-form input {
+        width: 100%;
+        display: block;
+        margin-bottom: 1rem;
+        font-size: 1.3rem;
+        padding: 0.2rem;
+        border: .1rem solid #000;
+        border-radius: .5rem;
+    }
+
+    #login .login-form #login-button {
+        margin: 0 auto;
+        display: block;
+        padding: 0.5rem 1rem;
+        font-size: 1.2rem;
+        margin-top: 3rem;
+        border: .1rem solid #333;
+        border-radius: .5rem;
+        background-color: #fff;
+        cursor: pointer;
+    }
+
+    #login .login-form #login-button:hover {
+        background-color: #000;
+        color: #fff;
+    }
+
+    #login .login-form h2 {
+        text-align: center;
+        margin-bottom: 3rem;
+        font-size: 2rem;
+        text-transform: capitalize;
+    }
+</style>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang điều khiển và hiển thị lịch sử truy cập</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+
+</head>
+
+<body onload="Gettime()">
+    <div id="wrapper">
+
+        <!-- login form start -->
+        <div id="login">
+            <form action="index.html" id="form" class="login-form" method="POST">
+                <h2>Bạn cần đăng nhập</h2>
+
+                <input type="text" id="user" placeholder="Tên đăng nhập"
+                    oninput="this.value = this.value.replace(/\s/g, '')">
+
+                <input type="password" id="pass" placeholder="Mật khẩu"
+                    oninput="this.value = this.value.replace(/\s/g, '')">
+
+                <button type="submit" id="login-button" onclick="logIn()">Đăng Nhập</button>
+            </form>
+        </div>
+        <!-- login form end -->
+
+        <div class="btn">
+            <button id="button">CẬP NHẬT/LÀM MỚI</button>
+            <button id="button4">MỞ CỬA</button>
+            <button id="button5">ĐÓNG CỬA</button>
+        </div>
+
+        <!-- tùy chỉnh nút thêm sự kiện ở đây -->
+        <h3 class="tcl">
+            THỜI GIAN HIỆN TẠI:
+            <label id="crtm">---</label>
+            NGÀY:
+            <label id="crdate">---</label>
+            <br>
+
+            TRẠNG THÁI CỬA:
+            <label id="door">---</label>
+        </h3>
+        <br class="tcl">
+        <label style="color: var(--my-color)"> CÀI THỜI GIAN</label>
+        <br>
+        <input id="setTime" type="text">
+        <button id="button2">XÁC NHẬN</button>
+        <br>
+        <br class="tcl">
+        <label style="color: var(--my-color)"> HIỆN LỊCH SỬ </label>
+        <br>
+        <input id="showH" type="text">
+        <button id="button3">XÁC NHẬN</button>
+        <br>
+        <br>
+        <form action="#" method="POST">
+            <!-- bắt đầu tạo bảng -->
+
+            <table border="1">
+                <tbody>
+                    <tr>
+                        <th>STT</th>
+                        <th>Thời điểm tới</th>
+                        <th>ID</th>
+                        <th>Đánh giá trễ</th>
+                    </tr>
+
+                    <tr>
+                        <td>1</td>
+                        <td class="time">
+                            <input id="time1" class="output-time" type="text" placeholder="---">
+                        <td class="id">
+                            <input id="id1" class="text" type="output-id" placeholder="---">
+                        </td>
+                        <td class="late">
+                            <input id="late1" class="text" type="output-late" placeholder="---">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td class="text">
+                            <input id="time2" type="text" placeholder="---">
+                        <td class="id">
+                            <input id="id2" type="text" maxlength="3" placeholder="---">
+                        </td>
+                        <td class="late">
+                            <input id="late2" class="text" type="output-late" placeholder="---">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td class="text">
+                            <input id="time3" type="text" placeholder="---">
+                        <td class="id">
+                            <input id="id3" type="text" maxlength="3" placeholder="---">
+                        </td>
+                        <td class="late">
+                            <input id="late3" class="text" type="output-late" placeholder="---">
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td class="text">
+                            <input id="time4" type="text" placeholder="---">
+                        <td class="id">
+                            <input id="id4" type="text" maxlength="3" placeholder="---">
+                        </td>
+                        <td class="late">
+                            <input id="late4" class="text" type="output-late" placeholder="---">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td class="text">
+                            <input id="time5" type="text" placeholder="---">
+                        <td class="id">
+                            <input id="id5" type="text" maxlength="3" placeholder="---">
+                        </td>
+                        <td class="late">
+                            <input id="late5" class="text" type="output-late" placeholder="---">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td class="text">
+                            <input id="time6" type="text" placeholder="---">
+
+                        <td class="id">
+                            <input id="id6" type="text" maxlength="3" placeholder="---">
+                        </td>
+                        <td class="late">
+                            <input id="late6" class="text" type="output-late" placeholder="---">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td class="text">
+                            <input id="time7" type="text" placeholder="---">
+                        <td class="id">
+                            <input id="id7" type="text" maxlength="3" placeholder="---">
+                        </td>
+                        <td class="late">
+                            <input id="late7" class="text" type="output-late" placeholder="---">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td class="text">
+                            <input id="time8" type="text" placeholder="---">
+                        <td class="id">
+                            <input id="id8" type="text" maxlength="3" placeholder="---">
+                        </td>
+                        <td class="late">
+                            <input id="late8" class="text" type="output-late" placeholder="---">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td class="text">
+                            <input id="time9" type="text" placeholder="---">
+                        <td class="id">
+                            <input id="id9" type="text" maxlength="3" placeholder="---">
+                        </td>
+                        <td class="late">
+                            <input id="late9" class="text" type="output-late" placeholder="---">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td class="text">
+                            <input id="time10" type="text" placeholder="---">
+                        <td class="id">
+                            <input id="id10" type="text" maxlength="3" placeholder="---">
+                        </td>
+                        <td class="late">
+                            <input id="late10" class="text" type="output-late" placeholder="---">
+                        </td>
+                    </tr>
+
+                    <tr id="hide">
+                        <td>11</td>
+                        <td class="text">
+                            <input id="time11" type="text" placeholder="---">
+                        <td class="id">
+                            <input id="id11" type="text" maxlength="3" placeholder="---">
+                        </td>
+                        <td class="late">
+                            <input id="late11" class="text" type="output-late" placeholder="---">
+                        </td>
+                    </tr>
+
+                    <tr id="hide">
+                        <td>12</td>
+                        <td class="text">
+                            <input id="time12" type="text" placeholder="---">
+                        <td class="id">
+                            <input id="id12" type="text" maxlength="3" placeholder="---">
+                        </td>
+                        <td class="late">
+                            <input id="late12" class="text" type="output-late" placeholder="---">
+                        </td>
+                    </tr>
+                    <tr id="hide">
+                        <td>13</td>
+                        <td class="text">
+                            <input id="time13" type="text" placeholder="---">
+                        <td class="id">
+                            <input id="id13" type="text" maxlength="3" placeholder="---">
+                        </td>
+                        <td class="late">
+                            <input id="late13" class="text" type="output-late" placeholder="---">
+                        </td>
+                    </tr>
+                    <tr id="hide">
+                        <td>14</td>
+                        <td class="text">
+                            <input id="time14" type="text" placeholder="---">
+                        <td class="id">
+                            <input id="id14" type="text" maxlength="3" placeholder="---">
+                        </td>
+                        <td class="late">
+                            <input id="late14" class="text" type="output-late" placeholder="---">
+                        </td>
+                    </tr>
+
+                    <tr id="hide">
+                        <td>15</td>
+                        <td class="text">
+                            <input id="time15" type="text" placeholder="---">
+
+                        <td class="id">
+                            <input id="id15" type="text" maxlength="3" placeholder="---">
+                        </td>
+                        <td class="late">
+                            <input id="late15" class="text" type="output-late" placeholder="---">
+                        </td>
+                    </tr>
+                    <tr id="hide">
+                        <td>16</td>
+                        <td class="text">
+                            <input id="time16" type="text" placeholder="---">
+
+                        <td class="id">
+                            <input id="id16" type="text" maxlength="3" placeholder="---">
+                        </td>
+                        <td class="late">
+                            <input id="late16" class="text" type="output-late" placeholder="---">
+                        </td>
+                    </tr>
+                    <tr id="hide">
+                        <td>17</td>
+                        <td class="text">
+                            <input id="time17" type="text" placeholder="---">
+
+                        <td class="id">
+                            <input id="id17" type="text" maxlength="3" placeholder="---">
+                        </td>
+                        <td class="late">
+                            <input id="late17" class="text" type="output-late" placeholder="---">
+                        </td>
+                    </tr>
+                    <tr id="hide">
+                        <td>18</td>
+                        <td class="text">
+                            <input id="time18" type="text" placeholder="---">
+
+                        <td class="id">
+                            <input id="id18" type="text" maxlength="3" placeholder="---">
+                        </td>
+                        <td class="late">
+                            <input id="late18" class="text" type="output-late" placeholder="---">
+                        </td>
+                    </tr>
+                    <tr id="hide">
+                        <td>19</td>
+                        <td class="text">
+                            <input id="time19" type="text" placeholder="---">
+
+                        <td class="id">
+                            <input id="id19" type="text" maxlength="3" placeholder="---">
+                        </td>
+                        <td class="late">
+                            <input id="late19" class="text" type="output-late" placeholder="---">
+                        </td>
+                    </tr>
+                    <tr id="hide">
+                        <td>20</td>
+                        <td class="text">
+                            <input id="time20" type="text" placeholder="---">
+
+                        <td class="id">
+                            <input id="id20" type="text" maxlength="3" placeholder="---">
+                        </td>
+                        <td class="late">
+                            <input id="late20" class="text" type="output-late" placeholder="---">
+                        </td>
+                    </tr>
+                <tfoot>
+                    <tr>
+                        <td>
+                            <input type="button" value="Hiện thêm" id="newrows">
+                            <!-- <input type="button" class="delete" value="Ẩn bớt" id="newrows"> -->
+                        </td>
+                        <td class="id">
+                        </td>
+                        <td class="id">
+                        </td>
+                        <td class="id">
+                        </td>
+
+
+                    </tr>
+                </tfoot>
+                </tbody>
+                </tagetElementByIdble>
+        </form>
+    </div>
+
+    <script>
+
+        let button = document.getElementById('button')
+        let button2 = document.getElementById('button2')
+        let button3 = document.getElementById('button3')
+        let button4 = document.getElementById('button4')
+        let crtm = document.getElementById('crtm')
+        let crdate = document.getElementById('crdate')
+        let door = document.getElementById('door')
+        let setTime = document.getElementById('setTime')
+        let showH = document.getElementById('showH')
+        let nhietdo = document.getElementById('nhietdo')
+        let doam = document.getElementById('doam')
+        let tttb1 = document.getElementById('tttb1')
+        let tttb2 = document.getElementById('tttb2')
+        let id1 = document.getElementById('id1')
+        let id2 = document.getElementById('id2')
+        let id3 = document.getElementById('id3')
+        let id4 = document.getElementById('id4')
+        let id5 = document.getElementById('id5')
+        let id6 = document.getElementById('id6')
+        let id7 = document.getElementById('id7')
+        let id8 = document.getElementById('id8')
+        let id9 = document.getElementById('id9')
+        let id10 = document.getElementById('id10')
+        let id11 = document.getElementById('id11')
+        let id12 = document.getElementById('id12')
+        let id13 = document.getElementById('id13')
+        let id14 = document.getElementById('id14')
+        let id15 = document.getElementById('id15')
+        let id16 = document.getElementById('id16')
+        let id17 = document.getElementById('id17')
+        let id18 = document.getElementById('id18')
+        let id19 = document.getElementById('id19')
+        let id20 = document.getElementById('id20')
+
+
+        let time1 = document.getElementById('time1')
+        let time2 = document.getElementById('time2')
+        let time3 = document.getElementById('time3')
+        let time4 = document.getElementById('time4')
+        let time5 = document.getElementById('time5')
+        let time6 = document.getElementById('time6')
+        let time7 = document.getElementById('time7')
+        let time8 = document.getElementById('time8')
+        let time9 = document.getElementById('time9')
+        let time10 = document.getElementById('time10')
+        let time11 = document.getElementById('time11')
+        let time12 = document.getElementById('time12')
+        let time13 = document.getElementById('time13')
+        let time14 = document.getElementById('time14')
+        let time15 = document.getElementById('time15')
+        let time16 = document.getElementById('time16')
+        let time17 = document.getElementById('time17')
+        let time18 = document.getElementById('time18')
+        let time19 = document.getElementById('time19')
+        let time20 = document.getElementById('time20')
+
+        let late2 = document.getElementById('late2')
+        let late3 = document.getElementById('late3')
+        let late4 = document.getElementById('late4')
+        let late5 = document.getElementById('late5')
+        let late6 = document.getElementById('late6')
+        let late7 = document.getElementById('late7')
+        let late8 = document.getElementById('late8')
+        let late9 = document.getElementById('late9')
+        let late10 = document.getElementById('late10')
+        let late11 = document.getElementById('late11')
+        let late12 = document.getElementById('late12')
+        let late13 = document.getElementById('late13')
+        let late14 = document.getElementById('late14')
+        let late15 = document.getElementById('late15')
+        let late16 = document.getElementById('late16')
+        let late17 = document.getElementById('late17')
+        let late18 = document.getElementById('late18')
+        let late19 = document.getElementById('late19')
+        let late20 = document.getElementById('late20')
+
+
+
+        button.onclick = function () {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var DataVDK = xhttp.responseText;
+                    console.log("Dữ liệu VDK:" + DataVDK);
+                    var DataJson = JSON.parse(DataVDK);
+
+
+                    if (DataJson.i1 == "NO DATA" || DataJson.i1 == "") {
+                        id1.value = id2.value = id3.value = id4.value = id5.value = id6.value = id7.value = id8.value = id9.value = id10.value = "";
+                        time1.value = time2.value = time3.value = time4.value = time5.value = time6.value = time7.value = time8.value = time9.value = time10.value = "";
+                        late1.value = late2.value = late3.value = late4.value = late5.value = late6.value = late7.value = late8.value = late9.value = late10.value = "";
+                        alert('KHÔNG CÓ DỮ LIỆU');
+                    }
+                    else {
+                        if (DataJson.i1 != null) {
+                            id1.value = DataJson.i1;
+                        }
+                        if (DataJson.i2 != null) {
+                            id2.value = DataJson.i2;
+                        }
+                        if (DataJson.i3 != null) {
+                            id3.value = DataJson.i3;
+                        }
+                        if (DataJson.i4 != null) {
+                            id4.value = DataJson.i4;
+                        }
+                        if (DataJson.i5 != null) {
+                            id5.value = DataJson.i5;
+                        }
+                        if (DataJson.i6 != null) {
+                            id6.value = DataJson.i6;
+                        }
+                        if (DataJson.i7 != null) {
+                            id7.value = DataJson.i7;
+                        }
+                        if (DataJson.i8 != null) {
+                            id8.value = DataJson.i8;
+                        }
+                        if (DataJson.i9 != null) {
+                            id9.value = DataJson.i9;
+                        }
+                        if (DataJson.i10 != null) {
+                            id10.value = DataJson.i10;
+                        }
+
+
+                        if (DataJson.t1 != null) {
+                            time1.value = DataJson.t1;
+                        }
+                        if (DataJson.t2 != null) {
+                            time2.value = DataJson.t2;
+
+                        }
+                        if (DataJson.t3 != null) {
+                            time3.value = DataJson.t3;
+                        }
+                        if (DataJson.t4 != null) {
+                            time4.value = DataJson.t4;
+                        }
+                        if (DataJson.t5 != null) {
+                            time5.value = DataJson.t5;
+                        }
+                        if (DataJson.t6 != null) {
+                            time6.value = DataJson.t6;
+                        }
+                        if (DataJson.t7 != null) {
+                            time7.value = DataJson.t7;
+                        }
+                        if (DataJson.t8 != null) {
+                            time8.value = DataJson.t8;
+                        }
+                        if (DataJson.t9 != null) {
+                            time9.value = DataJson.t9;
+                        }
+                        if (DataJson.t10 != null) {
+                            time10.value = DataJson.t10;
+                        }
+
+                        if (DataJson.l1 != null) {
+                            late1.value = DataJson.l1;
+                        }
+                        if (DataJson.l2 != null) {
+                            late2.value = DataJson.l2;
+
+                        }
+                        if (DataJson.l3 != null) {
+                            late3.value = DataJson.l3;
+                        }
+                        if (DataJson.l4 != null) {
+                            late4.value = DataJson.l4;
+                        }
+                        if (DataJson.l5 != null) {
+                            late5.value = DataJson.l5;
+                        }
+                        if (DataJson.l6 != null) {
+                            late6.value = DataJson.l6;
+                        }
+                        if (DataJson.l7 != null) {
+                            late7.value = DataJson.l7;
+                        }
+                        if (DataJson.l8 != null) {
+                            late8.value = DataJson.l8;
+                        }
+                        if (DataJson.l9 != null) {
+                            late9.value = DataJson.l9;
+                        }
+                        if (DataJson.l10 != null) {
+                            late10.value = DataJson.l10;
+                        }
+                    }
+                }
+            }
+            xhttp.open("GET", "/Update", true);
+            xhttp.send();
+            // cập nhật khi chưa có data, sẽ tự thu nhỏ bảng
+            if (newrows.style.display == 'none') {
+                newrows.style.display = 'block'; // Hiện nút Add new row
+                // del.style.display = 'none'; //Ẩn nút Delete
+
+                for (const hideRow of hideRows) {
+                    hideRow.style.display = 'none'; // Ẩn 10 dòng cuối 
+                }
+            }
+
+        }
+
+
+
+        button2.onclick = function () {
+            if (setTime.value == "") {
+                alert('Không hợp lệ')
+            }
+            else {
+
+
+                var C1 = "SET" + setTime.value + "TM";
+                var xhttp = new XMLHttpRequest();
+                xhttp.open("GET", "/Input?Input=" + C1, true);
+                xhttp.send();
+
+            }
+        }
+
+        button3.onclick = function () {
+            if (showH.value == "") {
+                alert('Không hợp lệ')
+            }
+            else {
+                var C2 = "SH" + showH.value + "HS";
+                var xhttp = new XMLHttpRequest();
+                xhttp.open("GET", "/Input?Input=" + C2, true);
+                xhttp.send();
+            }
+        }
+        button4.onclick = function () {
+            var C3 = "OPEN";
+            var xhttp = new XMLHttpRequest();
+            xhttp.open("GET", "/Input?Input=" + C3, true);
+            xhttp.send();
+        }
+        button5.onclick = function () {
+            var C3 = "CLOSE";
+            var xhttp = new XMLHttpRequest();
+
+            xhttp.open("GET", "/Input?Input=" + C3, true);
+            xhttp.send();
+        }
+        function Gettime() {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var DataVDK = xhttp.responseText;
+                    console.log("Dữ liệu VDK:" + DataVDK);
+                    var DataJson = JSON.parse(DataVDK);
+
+                    if (DataJson.crtm != null) {
+                        document.getElementById("crtm").innerHTML = DataJson.crtm;
+                        document.getElementById("crdate").innerHTML = DataJson.crdate;
+                        door = DataJson.door;
+                        if (door == "DANGMO") {
+                            document.getElementById("door").innerHTML = "ĐANG MỞ";
+                        }
+                        if (door == "DANGDONG") {
+                            document.getElementById("door").innerHTML = "ĐANG ĐÓNG";
+                        }
+
+                    }
+                    if (DataJson.bc1 == "Khu A") {
+                        alert('CANH BAO CO CHAY O KHU VUC: A')
+                    }
+                    if (DataJson.bc2 == "Khu B") {
+                        alert('CANH BAO CO CHAY O KHU VUC: B')
+                    }
+                    if (DataJson.bc3 == "Khu A va B") {
+                        alert('CANH BAO CO CHAY O KHU VUC: A Va B')
+                    }
+                    if (DataJson.ND != null) {
+                        document.getElementById("nhietdo").innerHTML = DataJson.ND;
+                    }
+                    if (DataJson.DA != null) {
+                        document.getElementById("doam").innerHTML = DataJson.DA;
+                    }
+
+                    if (DataJson.tb1 != null) {
+                        if (DataJson.tb1 == 1) {
+                            document.getElementById("tttb1").innerHTML = "ON";
+                        }
+                        else if (DataJson.tb1 == 0) {
+                            document.getElementById("tttb1").innerHTML = "OFF";
+                        }
+                    }
+
+                    if (DataJson.tb2 != null) {
+                        if (DataJson.tb2 == 1) {
+                            document.getElementById("tttb2").innerHTML = "ON";
+                        }
+                        else if (DataJson.tb2 == 0) {
+                            document.getElementById("tttb2").innerHTML = "OFF";
+                        }
+                    }
+                }
+            }
+            xhttp.open('GET', '/Updatecrtm', true);
+            xhttp.send();
+            setTimeout(function () { Gettime() }, 3000);
+        }
+
+
+    </script>
+
+    <script>
+
+        /* ------------ Tạo function tăng thêm 10 dòng -------------*/
+        let nhanbiet;
+
+        let newrows = document.getElementById('newrows');
+        let del = document.querySelector('.delete');
+        let hideRows = document.querySelectorAll('#hide');
+
+        // Tạo sự kiện khi click vào nút Add new row 
+        newrows.onclick = function () {
+            if (id1.value != "") {
+
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        var DataVDK = xhttp.responseText;
+                        console.log("Dữ liệu VDK:" + DataVDK);
+                        var DataJson = JSON.parse(DataVDK);
+
+                        if (DataJson.d1 != null) {
+                            id11.value = DataJson.d1;
+                        }
+                        if (DataJson.d2 != null) {
+                            id12.value = DataJson.d2;
+                        }
+                        if (DataJson.d3 != null) {
+                            id13.value = DataJson.d3;
+                        }
+                        if (DataJson.d4 != null) {
+                            id14.value = DataJson.d4;
+                        }
+                        if (DataJson.d5 != null) {
+                            id15.value = DataJson.d5;
+                        }
+                        if (DataJson.d6 != null) {
+                            id16.value = DataJson.d6;
+                        }
+                        if (DataJson.d7 != null) {
+                            id17.value = DataJson.d7;
+                        }
+                        if (DataJson.d8 != null) {
+                            id18.value = DataJson.d8;
+                        }
+                        if (DataJson.d9 != null) {
+                            id19.value = DataJson.d9;
+                        }
+                        if (DataJson.d10 != null) {
+                            id20.value = DataJson.d10;
+                        }
+                        if (DataJson.m1 != null) {
+                            time11.value = DataJson.m1;
+                        }
+                        if (DataJson.m2 != null) {
+                            time12.value = DataJson.m2;
+                        }
+                        if (DataJson.m3 != null) {
+                            time13.value = DataJson.m3;
+                        }
+                        if (DataJson.m4 != null) {
+                            time14.value = DataJson.m4;
+                        }
+                        if (DataJson.m5 != null) {
+                            time15.value = DataJson.m5;
+                        }
+                        if (DataJson.m6 != null) {
+                            time16.value = DataJson.m6;
+                        }
+                        if (DataJson.m7 != null) {
+                            time17.value = DataJson.m7;
+                        }
+                        if (DataJson.m8 != null) {
+                            time18.value = DataJson.m8;
+                        }
+                        if (DataJson.m9 != null) {
+                            time19.value = DataJson.m9;
+                        }
+                        if (DataJson.m10 != null) {
+                            time20.value = DataJson.m10;
+                        }
+                        if (DataJson.e1 != null) {
+                            late11.value = DataJson.e1;
+                        }
+                        if (DataJson.e2 != null) {
+                            late12.value = DataJson.e2;
+                        }
+                        if (DataJson.e3 != null) {
+                            late13.value = DataJson.e3;
+                        }
+                        if (DataJson.e4 != null) {
+                            late14.value = DataJson.e4;
+                        }
+                        if (DataJson.e5 != null) {
+                            late15.value = DataJson.e5;
+                        }
+                        if (DataJson.e6 != null) {
+                            late16.value = DataJson.e6;
+                        }
+                        if (DataJson.e7 != null) {
+                            late17.value = DataJson.e7;
+                        }
+                        if (DataJson.e8 != null) {
+                            late18.value = DataJson.e8;
+                        }
+                        if (DataJson.e9 != null) {
+                            late19.value = DataJson.e9;
+                        }
+                        if (DataJson.e10 != null) {
+                            late20.value = DataJson.e10;
+                        }
+                    }
+                }
+                xhttp.open("GET", "/Update2", true);
+                xhttp.send();
+                newrows.style.display = 'none' // Ẩn nút Add new row
+                // del.style.display = 'block' // Hiện nút Delete
+                for (const hideRow of hideRows) {
+                    hideRow.style.display = 'revert'; // Hiện 10 dòng cuối
+                }
+            }
+        }
+
+
+
+
+    </script>
+    <div class="midle">
+        <span class="fas fa-temperature-half"></span> <span> Nhiệt Độ : </span><span id="nhietdo">---</span>
+        <span>&#8451</span>
+    </div>
+    <div class="midle">
+        <span class="fas fa-droplet"></span> <span>Độ ẩm : </span><span id="doam">---</span> <span>%</span>
+    </div>
+    <div class="midle">
+        <span class="tttb"></span><span>Trạng thái thiết bị 1 : </span><span id="tttb1">---</span>
+    </div>
+    <div class="midle">
+        <span class="tttb"></span> <span>Trạng thái thiết bị 2 :</span> <span id="tttb2">---</span>
+    </div>
+
+
+    <script type="text/javascript">
+
+        //Ẩn source
+        // document.addEventListener("keydown", function (e) {
+        //     if (e.ctrlKey) {
+        //         e.preventDefault(); 
+        //     }
+        //     if (e.keyCode == 123) {
+        //         e.preventDefault();
+        //     }
+        // });
+
+        // document.addEventListener("contextmenu",
+        //     e => e.preventDefault()
+        // );
+
+        /* Form Đăng Nhập */
+        let loginForm = document.getElementById("login")
+        let form = document.getElementById("form")
+        let logBtn = document.getElementById("log-button")
+
+        form.onsubmit = () => { return false }
+
+        // Tài khoản và mật khẩu
+        var user = [
+            {
+                username: "admin",
+                password: 12345
+            },
+            {
+                username: "1",
+                password: 1
+            }
+        ]
+
+        function logIn() {
+            username = document.getElementById("user").value
+            password = document.getElementById("pass").value
+
+            for (i = 0; i < user.length; i++) {
+                if (username == user[i].username && password == user[i].password) {
+                    loginForm.style.display = "none"
+                    return
+                }
+
+            }
+            alert("Sai thông tin đăng nhập")
+        }
+
+
+    </script>
+
+</body>
+
+
+
+</html>
+
+
+)=====";
